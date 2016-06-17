@@ -12,7 +12,7 @@ import java.util.Random;
  * The Class Controller.
  */
 public class Controller implements IController {
-	private final IModel	model;
+	private  IModel	model;
 	private IModel				worldMeeting;
 	private IViewFrame				worldFrame;
 	private int							playMode;
@@ -30,15 +30,12 @@ public class Controller implements IController {
 	 * @param model
 	 *          the model
 	 */
+	public Controller(){
+		
+	}
 	public Controller(final IView view, final IModel model) {
 		this.setView(view);
 		this.setModel(model);
-		
-	}
-	public Controller(final IModel model) throws IOException {
-		this.model = model;
-		this.model.addMobile(new Monster(), 16, 16);
-		this.model.addMobile(new Hero(), 15, 15);
 		
 	}
 
@@ -108,7 +105,29 @@ public class Controller implements IController {
 		}
 	}
 
-	
+	/*@Override
+	public void orderPerform(final ControllerOrder ControllerOrder)throws IOException   {
+		this.moove();
+		switch (ControllerOrder) {
+			case UP :
+				this.getActuelWorld().getHero().moveUp();
+				break;
+			case RIGHT:
+				this.getActuelWorld().getHero().moveRight();
+				break;
+			case DOWN:
+				this.getActuelWorld().getHero().moveDown();
+				break;
+			case LEFT:
+				this.getActuelWorld().getHero().moveLeft();
+				break;
+			case NOP:
+			default:
+				break;
+		}
+		this.getWorldAnswer();
+		System.out.println("test1");
+	}*/
 
 		// TODO: Auto-generated Javadoc
 		/**
@@ -142,35 +161,13 @@ public class Controller implements IController {
 				}
 
 				private IModel getActuelWorld() {
-					if (this.getPlayMode() == View.VIEW_MODE_MEETING) {
+					if (this.getPlayMode() == IView.VIEW_MODE_MEETING) {
 						return this.getWorldMeeting();
 					}
 					return this.getWorld();
 				}
 
-				/*@Override
-				public void orderPerform(final ControllerOrder ControllerOrder)throws IOException   {
-					this.moove();
-					switch (ControllerOrder) {
-						case UP :
-							this.getActuelWorld().getHero().moveUp();
-							break;
-						case RIGHT:
-							this.getActuelWorld().getHero().moveRight();
-							break;
-						case DOWN:
-							this.getActuelWorld().getHero().moveDown();
-							break;
-						case LEFT:
-							this.getActuelWorld().getHero().moveLeft();
-							break;
-						case NOP:
-						default:
-							break;
-					}
-					this.getWorldAnswer();
-					System.out.println("test1");
-				}*/
+
 				public void moove() throws IOException{
 					int min =0;
 					int max =3;
@@ -216,7 +213,7 @@ public class Controller implements IController {
 				//	this.getWorldMeeting().addMobile(new Hero(), 1, 1);
 				//	this.getWorldMeeting().addMobile(new Monster(), 1, 2);
 					this.getWorldFrame().setMeeting(this.getWorldMeeting());
-					this.setPlayMode(View.VIEW_MODE_MEETING);
+					this.setPlayMode(IView.VIEW_MODE_MEETING);
 				}
 
 

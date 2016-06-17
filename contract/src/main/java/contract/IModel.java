@@ -16,7 +16,7 @@ import java.util.Observer;
  */
 public interface IModel  {
 
-	public void  Model(); 
+
 	
 	/**
 	 * Gets the message.
@@ -44,23 +44,23 @@ public interface IModel  {
 
 		public int getHeight();
 
-		//public MotionlessElement getElements(int x, int y);
+		public <MotionlessElement> MotionlessElement getElements(int x, int y);
 
-		//public Hero getHero();
+		public <Hero> Hero getHero();
 		
-		//public Monster getMonster();
+		public <Monster> Monster getMonster();
 
-		//public void addMobile(Mobile mobile, int x, int y);
+	//	public void addMobile(Mobile mobile, int x, int y);
 
-		//public void addMobile(Hero hero, int x, int y);
+//		public void addMobile(Hero hero, int x, int y);
 		
-		//public void addMobile(Monster monster, int x, int y);
+	//	public void addMobile(Monster monster, int x, int y);
 
 		public void setMobileHasChanged();
 
-		//public Element[][] getElements();
+		public <Element> Element[][] getElements();
 
-		//public ArrayList<Mobile> getMobiles();
+		public <Mobile> ArrayList<Mobile> getMobiles();
 
 		public void addObserver(Observer o);
 

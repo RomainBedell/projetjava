@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
@@ -10,16 +11,22 @@ import javax.swing.JOptionPane;
 
 import contract.IController;
 import contract.IModel;
+import contract.IViewFrame;
+import view.ViewBoardPanel;
+import view.ViewCardView;
 
 /**
  * The Class ViewFrame.
  *
  * @author Jean-Aymeric Diet
  */
-public class ViewFrame extends JFrame implements KeyListener {
+public class ViewFrame extends JFrame implements KeyListener, IViewFrame{
+	private  ViewBoardPanel	mapPanel;
+	private ViewBoardPanel				meetingPanel;
 
+	private  ViewCardView		viewCardView;
 	/** The model. */
-	private IModel						model;
+	private  IModel						model;
 
 	/** The controller. */
 	private IController				controller;
@@ -34,7 +41,24 @@ public class ViewFrame extends JFrame implements KeyListener {
 	 * @throws HeadlessException
 	 *           the headless exception
 	 */
-	public ViewFrame(final IModel model) throws HeadlessException {
+	public ViewFrame(final String title, final IModel model, final IController controller) {
+		this.setTitle(title);
+		this.setSize(700, 700);
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.controller = controller;
+		this.mapPanel = new ViewBoardPanel(new Dimension(model.getWidth(), model.getHeight()), model.getElements(), model.getMobiles(),
+				model.getHero(), View.MAP_ZOOM);
+		this.setResizable(false);
+		model.addObserver(this.mapPanel);
+		this.addKeyListener(this);
+		this.viewCardView = new ViewCardView();
+		this.getContentPane().setLayout(this.viewCardView);
+		this.getContentPane().add(this.mapPanel, "MAP");
+		this.setVisible(true);
+	}
+	
+	public ViewFrame(final IModel model) {
 		this.buildViewFrame(model);
 	}
 
@@ -62,7 +86,7 @@ public class ViewFrame extends JFrame implements KeyListener {
 	 *           the headless exception
 	 */
 	public ViewFrame(final IModel model, final String title) throws HeadlessException {
-		super(title);
+		super("Welcome to NettleWorld");
 		this.buildViewFrame(model);
 	}
 
@@ -77,7 +101,7 @@ public class ViewFrame extends JFrame implements KeyListener {
 	 *          the gc
 	 */
 	public ViewFrame(final IModel model, final String title, final GraphicsConfiguration gc) {
-		super(title, gc);
+		super("Welcome to NettleWorld", gc);
 		this.buildViewFrame(model);
 	}
 
@@ -126,12 +150,16 @@ public class ViewFrame extends JFrame implements KeyListener {
 	 *          the model
 	 */
 	private void buildViewFrame(final IModel model) {
+		this.setTitle("test");
+		this.setSize(700, 700);
 		this.setModel(model);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.addKeyListener(this);
 		this.setContentPane(new ViewPanel(this));
-		this.setSize(400 + this.getInsets().left + this.getInsets().right, 60 + this.getInsets().top + this.getInsets().bottom);
+	//	this.mapPanel = new ViewBoardPanel(new Dimension(model.getWidth(), model.getHeight()), model.getElements(), model.getMobiles(),
+	//			model.getHero(), View.MAP_ZOOM);
+	//	this.setSize(800 + this.getInsets().left + this.getInsets().right, 60 + this.getInsets().top + this.getInsets().bottom);
 		this.setLocationRelativeTo(null);
 	}
 
@@ -170,5 +198,17 @@ public class ViewFrame extends JFrame implements KeyListener {
 	 */
 	public void keyReleased(final KeyEvent e) {
 
+	}
+
+	@Override
+	public void setMeeting(IModel model) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setViewMode(int viewMode) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -12,17 +12,19 @@ import contract.IViewFrame;
 import view.ViewFrame;
 
 
-public class Lorann implements Runnable{
+public final class Lorann implements Runnable{
 	private final IModel	model;
-	private final Controller		worldPlay;
-	private IViewFrame				worldFrame;
-
-	public Lorann()  {
-	final Model model = new Model();
-	final View view = new View(model);
-	final Controller controller = new Controller(view, model);
-	SwingUtilities.invokeLater(this);
-	view.setController(controller);
+	private  Controller		controler;
+	private IViewFrame				viewFrame;
+//	private final Controller		worldPlay;
+	
+	public Lorann (){
+	 this.model = new Model();
+	//final View view = new View(model);
+	//final Controller controller = new Controller(view, model);
+	final Controller controller = new Controller();
+//	SwingUtilities.invokeLater(this);
+//	view.setController(controller);
 	controller.control();
 	}
 	/*private final IModel	model;
@@ -37,9 +39,9 @@ public class Lorann implements Runnable{
 
 	@Override
 	public void run() {
-		this.worldFrame = new ViewFrame("Welcome to Laurann", this.getWorld(), this.getWorldPlay()); 
+		this.viewFrame = new ViewFrame(this.getWorld(), this.getWorldPlay()); 
 
-		this.worldPlay.setWorldFrame(this.worldFrame);
+		this.controler.setWorldFrame(this.viewFrame);
 	}
 
 	private IModel getWorld() {
@@ -47,8 +49,8 @@ public class Lorann implements Runnable{
 	}
 
 	private Controller getWorldPlay() {
-		return this.worldPlay;
+		return this.controler;
 	}
 
-	}
+}
 

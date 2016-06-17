@@ -44,11 +44,7 @@ public class Model extends Observable implements IModel {
 		this.message = "";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage()
-	 */
+
 	public String getMessage() {
 		return this.message;
 	}
@@ -65,11 +61,7 @@ public class Model extends Observable implements IModel {
 		this.notifyObservers();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage(java.lang.String)
-	 */
+
 	public void loadMessage(final String key) {
 		try {
 			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
@@ -97,17 +89,17 @@ public class Model extends Observable implements IModel {
 			
 		}
 
-		
+		@Override
 		public int getWidth() {
 			return this.width;
 		}
 
-		
+		@Override
 		public int getHeight() {
 			return this.height;
 		}
 
-		
+		@Override
 		public MotionlessElement getElements(final int x, final int y) {
 			if ((x < 0) || (y < 0) || (x >= this.getWidth()) || (y >= this.getHeight())) {
 				return null;
@@ -115,11 +107,11 @@ public class Model extends Observable implements IModel {
 			return this.elements[x][y];
 		}
 
-		
+		@Override
 		public Hero getHero()  {
 			return this.hero;
 		}
-		
+		@Override
 		public Monster getMonster() {
 			return this.monster;
 		}
@@ -179,13 +171,14 @@ public class Model extends Observable implements IModel {
 			this.hero = hero;
 			this.setChanged();
 		}
+		
 		private void setMonster(final Monster monster) {
 			this.monster = monster;
 			this.setChanged();
 		}
 
 
-	
+		@Override
 		public void setMobileHasChanged() {
 			this.setChanged();
 			this.notifyObservers();
@@ -195,10 +188,24 @@ public class Model extends Observable implements IModel {
 		public void notifyObservers() {
 			super.notifyObservers();
 		}
-
+		@Override
 	public Observable getObservable() {
 		return this;
 	}
+
+
+		@Override
+		public <Element> Element[][] getElements() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+		@Override
+		public <Mobile> ArrayList<Mobile> getMobiles() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	}
 
 

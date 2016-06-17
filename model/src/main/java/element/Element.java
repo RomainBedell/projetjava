@@ -4,6 +4,7 @@ import java.awt.Image;
 import aedt.showboard.ISquare;
 import contract.IModel;
 import model.Model;
+import contract.ISprite;
 
 public class Element implements ISquare{
 

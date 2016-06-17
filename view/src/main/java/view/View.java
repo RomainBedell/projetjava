@@ -15,7 +15,10 @@ import contract.IView;
  * @author Jean-Aymeric Diet
  */
 public class View implements IView, Runnable {
-
+	public static int				MAP_ZOOM					= 4;
+	public static int				MEETING_ZOOM			= 3;
+	public final static int	VIEW_MODE_MAP			= 1;
+	public final static int	VIEW_MODE_MEETING	= 2;
 	/** The frame. */
 	private final ViewFrame viewFrame;
 
@@ -27,6 +30,14 @@ public class View implements IView, Runnable {
 	 */
 	public View(final IModel model) {
 		this.viewFrame = new ViewFrame(model);
+		SwingUtilities.invokeLater(this);
+	}
+	public void run() {
+		this.viewFrame.setVisible(true);
+	}
+	
+	/*public View(final IModel model) {
+		this.viewFrame = new ViewFrame(final String title, final IModel model, final IController controller) );
 		SwingUtilities.invokeLater(this);
 	}
 
@@ -74,9 +85,7 @@ public class View implements IView, Runnable {
 	 *
 	 * @see java.lang.Runnable#run()
 	 */
-	public void run() {
-		this.viewFrame.setVisible(true);
-	}
+
 
 	/**
 	 * Sets the controller.

@@ -4,7 +4,7 @@ import java.awt.Point;
 
 import aedt.showboard.IPawn;
 import element.Element;
-import element.ISprite;
+import contract.ISprite;
 import element.Permeability;
 import model.Model;
 
